@@ -1,11 +1,11 @@
-from flask import Flask
+from flask import Flask, render_template, redirect, url_for, request
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from database_setup import Base, Restaurant, MenuItem
 app = Flask(__name__)
 
 
-engine = create_engine('sqlite:///restaurantmenu.db')
+engine = create_engine('sqlite:///restaurantmenu.db',connect_args={'check_same_thread': False})
 Base.metadata.bind = engine
 
 DBSession = sessionmaker(bind=engine)
