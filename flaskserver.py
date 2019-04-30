@@ -14,19 +14,43 @@ session = DBSession()
 @app.route('/')
 @app.route('/restaurant/')
 def showRestaurants():
+  restaurant = session.query(Restaurant).all()
+  return render_template('restaurants.html', restaurant=restaurant)
   return "Show all restaurants"
 
 @app.route('/restaurant/new/', methods = ['GET','POST'])
 def newRestaurant():
+  if request.method == 'POST':
+    newRestaurant = Restaurant(name=request.form['name'])
+    session.add(newRestaurant)
+    session.commit()
+    return redirect(url_for('showRestaurants'))
+  else:
+    return render_template('newRestaurant.html')
   return "Created new restaurant"
 
 @app.route('/restaurant/<int:restaurant_id>/edit/', methods = ['GET','POST'])
 def editRestaurant(restaurant_id):
-    return "Edited restaurant %s"%restaurant_id
+  editedRestaurant = session.query(Restaurant).filter_by(id=restaurant_id).one()
+  if request.method == 'POST':
+    if request.form['name']:
+      editedRestaurant.name = request.form['name']
+      return redirect(url_for('showRestaurants'))
+    else:
+        return render_template(
+            'editRestaurant.html', restaurant=editedRestaurant)
+  return "Edited restaurant %s"%restaurant_id
 
 @app.route('/restaurant/<int:restaurant_id>/delete/', methods=['GET', 'POST'])
 def deleteRestaurant(restaurant_id):
-    return 'This page will be for deleting restaurant %s' % restaurant_id
+  restaurantToDelete = session.query(Restaurant).filter_by(id=restaurant_id).one()
+  if request.method == 'POST':
+    session.delete(restaurantToDelete)
+    session.commit()
+    return redirect(url_for('showRestaurants', restaurant_id=restaurant_id))
+  else:
+    return render_template('deleteRestaurant.html', restaurant=restaurantToDelete)
+  return 'This page will be for deleting restaurant %s' % restaurant_id
 
 @app.route('/restaurant/<int:restaurant_id>/')
 @app.route('/restaurant/<int:restaurant_id>/menu/')
