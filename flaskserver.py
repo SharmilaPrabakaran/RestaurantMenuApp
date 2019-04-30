@@ -11,39 +11,35 @@ Base.metadata.bind = engine
 DBSession = sessionmaker(bind=engine)
 session = DBSession()
 
-@app.route('/restaurants/<int:restaurant_id>/')
-def restaurantMenu(restaurant_id):
-    restaurant = session.query(Restaurant).filter_by(id=restaurant_id).one()
-    items = session.query(MenuItem).filter_by(restaurant_id=restaurant.id)
-    output = ''
-    for i in items:
-        output += i.name
-        output += '</br>'
-        output += i.price
-        output += '</br>'
-        output += i.description
-        output += '</br>'
-        output += '</br>'
-    return output
+@app.route('/')
+@app.route('/restaurant/')
+def showRestaurants():
+  return "Show all restaurants"
 
-@app.route('/restaurant/<int:restaurant_id>/new/')
-def newMenuItem(restaurant_id):
-    return "page to create a new menu item. Task 1 complete!"
+@app.route('/restaurant/new/', methods = ['GET','POST'])
+def newRestaurant():
+  return "Created new restaurant"
 
-# Task 2: Create route for editMenuItem function here
+@app.route('/restaurant/<int:restaurant_id>/edit/', methods = ['GET','POST'])
+def editRestaurant(restaurant_id):
+    return "Edited restaurant %s"%restaurant_id
 
+@app.route('/restaurant/<int:restaurant_id>/delete/', methods=['GET', 'POST'])
+def deleteRestaurant(restaurant_id):
+    return 'This page will be for deleting restaurant %s' % restaurant_id
 
-@app.route('/restaurant/<int:restaurant_id>/<int:menu_id>/edit/')
+@app.route('/restaurant/<int:restaurant_id>/')
+@app.route('/restaurant/<int:restaurant_id>/menu/')
+def showMenu(restaurant_id):
+    return 'This page is for making a new menu item for restaurant %s'%restaurant_id
+
+@app.route('/restaurant/<int:restaurant_id>/menu/<int:menu_id>/edit',methods=['GET', 'POST'])
 def editMenuItem(restaurant_id, menu_id):
-    return "page to edit a menu item. Task 2 complete!"
+    return 'This page is for editing menu item %s' % menu_id
 
-# Task 3: Create a route for deleteMenuItem function here
-
-
-@app.route('/restaurant/<int:restaurant_id>/<int:menu_id>/delete/')
+@app.route('/restaurant/<int:restaurant_id>/menu/<int:menu_id>/delete',methods=['GET', 'POST'])
 def deleteMenuItem(restaurant_id, menu_id):
-    return "page to delete a menu item. Task 3 complete!"
-
+    return "This page is for deleting menu item %s" % menu_id
 
 if __name__ == '__main__':
     app.debug = True
