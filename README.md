@@ -1,5 +1,5 @@
 # RestaurantMenu
-  An interactive Web Application thats presents a user a variety of Menu Items of different Restaurants that they can view, create, modify and delete.
+  An interactive Web Application thats presents different Restaurants and their variety of Menu Items that they can view, create, modify and delete.
 
 Software and Libraries this project uses the following libraries:
 
@@ -21,3 +21,24 @@ pip install -r requirements.txt
 
 4. Navigate to localhost:5000/restaurant/ in the browser to run the app.
 
+# Restaurant End-points:
+/restaurant/                          Show all restaurants.
+/restaurant/new/                      Add a new restaurant.
+/restaurant/<restaurant_id>/edit/     Edit a restaurant.
+/restaurant/<restaurant_id>/delete/   Delete a restaurant
+
+# Menu End-points:
+/restaurant/<restaurant_id>(/menu/)              Show the full menu
+/restaurant/<restaurant_id>/new/                 Add a menu item
+/restaurant/<restaurant-id>/<menuid>/edit        Edit a menu item
+/restaurant/<restaurant_id>/<menuid>/delete      Edit a menu item
+  
+# CRUD functions:
+* showRestaurants()
+* newRestaurant()
+* editRestaurant()
+* deleteRestaurant()
+* showMenu()
+* newMenuItem()
+* editMenuItem()
+* deleteMenuItem()
