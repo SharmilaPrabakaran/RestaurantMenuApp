@@ -3,9 +3,9 @@
 
 Software and Libraries this project uses the following libraries:
 
-Python
-Flask https://flask.pocoo.org/
-SQLAlchemy https://www.sqlalchemy.org/
+* Python
+* Flask https://flask.pocoo.org/
+* SQLAlchemy https://www.sqlalchemy.org/
 
 # Installation
 
