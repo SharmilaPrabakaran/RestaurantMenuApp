@@ -30,8 +30,8 @@ pip install -r requirements.txt
 # Menu End-points:
 * /restaurant/<restaurant_id>(/menu/)           -- Show the full menu
 * /restaurant/<restaurant_id>/new/              -- Add a menu item
-* /restaurant/<restaurant-id>/<menuid>/edit     -- Edit a menu item
-* /restaurant/<restaurant_id>/<menuid>/delete   -- Delete a menu item
+* /restaurant/<restaurant_id>/<menu_id>/edit     -- Edit a menu item
+* /restaurant/<restaurant_id>/<menu_id>/delete   -- Delete a menu item
   
 # CRUD functions:
 * showRestaurants()
